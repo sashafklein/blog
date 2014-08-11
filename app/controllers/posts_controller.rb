@@ -1,10 +1,7 @@
 class PostsController < ApplicationController
 
-  attr_accessor :tags, :post_params
-
   before_action :load_post, only: [:edit, :destroy, :update]
   before_action :authenticate_user!, except: [:index]
-  # before_action :load_params, only: [:update, :create]
   
   def index
     @posts = Post.all

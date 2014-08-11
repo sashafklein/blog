@@ -20,6 +20,7 @@ gem "simple_form"
 gem "title"
 gem "uglifier"
 gem "unicorn"
+gem "ahoy_matey"
 
 gem "haml-rails"
 gem 'acts-as-taggable-on'
