@@ -1,10 +1,14 @@
 class PostsController < ApplicationController
+
+  attr_accessor :tags, :post_params
+
+  before_action :load_post, only: [:edit, :destroy, :update]
+  before_action :authenticate_user!, except: [:index]
+  # before_action :load_params, only: [:update, :create]
+  
   def index
     @posts = Post.all
   end
-
-  # def show
-  # end
 
   def new
     @post = Post.new
@@ -14,9 +18,9 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(post_params)
-    
-    if @post.save
+    @post = current_user.posts.new(post_params)
+
+    if @post.save && @post.tag!(tags)
       flash[:success] = "Post created successfully."
     else
       flash[:error] = "Post creation failed."
@@ -26,7 +30,7 @@ class PostsController < ApplicationController
   end
 
   def update
-    if @post.update_attributes(post_params)
+    if @post.update_attributes(post_params) && @post.tag!(tags)
       flash[:success] = "Post updated successfully"
     else
       flash[:error] = "Post update failed."
@@ -47,11 +51,19 @@ class PostsController < ApplicationController
 
   private
 
+  def authenticate_user!
+    current_user.present?
+  end
+
   def load_post
     @post = Post.find(params[:id])
   end
 
   def post_params
-    params.require(:post).permit(:title, :body, :author)
+    params.require(:post).permit(:title, :body)
+  end
+
+  def tags
+    params.require(:associated_tags)
   end
 end
