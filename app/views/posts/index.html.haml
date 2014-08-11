@@ -1,5 +1,5 @@
 - @posts.each do |post|
-  %h3= post.title
-  %p= post.body
-  %p
-    %em= "by #{post.author.name}"
+  .post{ id: post.html_id }
+    %h3.post-title= post.title
+    %p.post-body= markdown post.body
+    %p.post-author= "by #{post.author.name}"

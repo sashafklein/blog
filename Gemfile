@@ -20,11 +20,12 @@ gem "simple_form"
 gem "title"
 gem "uglifier"
 gem "unicorn"
-gem "ahoy_matey"
 
 gem "haml-rails"
 gem 'acts-as-taggable-on'
 gem 'devise'
+gem "ahoy_matey"
+gem "redcarpet"
 
 group :development do
   gem "foreman"

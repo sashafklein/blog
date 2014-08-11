@@ -15,4 +15,9 @@ class Post < ActiveRecord::Base
     tag_list.remove( Array(tags) )
     save!
   end
+
+  def html_id
+    chars = '-_=+!,./?*&%$#@:;[]()'
+    title.tr(chars,'').split.map(&:downcase).reject{ |w| chars.include? w }.join("-")
+  end
 end
